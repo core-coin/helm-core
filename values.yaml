@@ -1,0 +1,37 @@
+imagePullPolicy: IfNotPresent
+
+nodeSelector: {}
+
+bootnode:
+  image:
+    repository: docker.pkg.github.com/core-coin/go-core/gocore
+    tag: v1.0.0
+
+stats:
+  image:
+    repository: docker.pkg.github.com/core-coin/stats/stats
+    tag: v1.0.0
+  webSocketSecret: my-secret-for-connecting
+  service:
+    type: LoadBalancer
+
+gocore:
+  image:
+    repository: docker.pkg.github.com/core-coin/go-core/gocore
+    tag: v1.0.0
+  tx:
+    replicaCount: 2
+    service:
+      type: ClusterIP
+    args:
+      rpcapi: 'xcb,net,web3'
+  miner:
+    replicaCount: 3
+  genesis:
+    difficulty: '0x0400'
+    energyLimit: '0x8000000'
+    networkId: 1
+  account:
+    address:
+    privateKey:
+    secret:
